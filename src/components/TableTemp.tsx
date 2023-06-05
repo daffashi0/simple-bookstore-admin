@@ -1,6 +1,9 @@
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import axios from 'axios'
+import { useState } from 'react'
+import ModalAddBuku from '../components/ModalAddBuku'
+import ModalAddPenerbit from "./ModalAddPenerbit";
 
 
 interface TableTempProps {
@@ -13,6 +16,9 @@ interface TableTempProps {
 
 const TableTemp = ({ headers, data, tipe, action, refetch } : TableTempProps) => {
   const url = tipe == 'buku' ? 'http://localhost:3000/api/buku' : 'http://localhost:3000/api/penerbit'
+  const [selectedItem, setSelectedItem] = useState<any>({})
+  const [open, setOpen] = useState<boolean>(false)
+  const [openPenerbit, setOpenPenerbit] = useState<boolean>(false)
 
   const deleteData = async (id: string) => {
     try {
@@ -32,6 +38,25 @@ const TableTemp = ({ headers, data, tipe, action, refetch } : TableTempProps) =>
       toast('Gagal delete data', {
         type: 'error',
       });
+    }
+  }
+
+  const editData = (item: any) => {
+    if(tipe == 'buku'){
+      setSelectedItem({
+        id: item.id,
+        kategori: item.kategori,
+        nama: item.nama,
+        harga: item.harga,
+        stok: item.stok,
+        id_penerbit: item.penerbit.id
+      })
+      if(selectedItem){
+        setOpen(true)
+      }
+    } else {
+      setSelectedItem(item)
+      setOpenPenerbit(true)
     }
   }
 
@@ -79,7 +104,7 @@ const TableTemp = ({ headers, data, tipe, action, refetch } : TableTempProps) =>
                   action && (
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <button className="hover:text-primary">
+                        <button className="hover:text-primary" onClick={() => editData(v)}>
                           <FaRegEdit />
                         </button>
                         <button className="hover:text-primary" onClick={() => deleteData(v.id)}>
@@ -116,7 +141,7 @@ const TableTemp = ({ headers, data, tipe, action, refetch } : TableTempProps) =>
                   action && (
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <button className="hover:text-primary">
+                        <button className="hover:text-primary" onClick={() => editData(v)}>
                           <FaRegEdit />
                         </button>
                         <button className="hover:text-primary" onClick={() => deleteData(v.id)}>
@@ -133,6 +158,8 @@ const TableTemp = ({ headers, data, tipe, action, refetch } : TableTempProps) =>
           </tbody>
         </table>
       </div>
+      <ModalAddBuku open={open} close={()=>setOpen(false)} refetch={refetch} isEdit item={selectedItem}  />
+      <ModalAddPenerbit open={openPenerbit} close={()=>setOpenPenerbit(false)} refetch={refetch} isEdit item={selectedItem}  />
     </div>
   );
 };

@@ -4,10 +4,12 @@ import DefaultLayout from '../layout/DefaultLayout';
 import {useState, useEffect} from 'react'
 import axios from 'axios';
 import { FaSearch, FaPlus } from "react-icons/fa";
+import ModalAddPenerbit from '../components/ModalAddPenerbit';
 
 const AdminPenerbit = () => {
   const [query, setQuery] = useState<any>()
   const [listPenerbit, setListPenerbit] = useState<any>()
+  const [open, setOpen] = useState<boolean>(false)
 
   const penerbitHeaders = [
     'ID Penerbit',
@@ -36,7 +38,7 @@ const AdminPenerbit = () => {
       <Breadcrumb pageName='List Penerbit' />
 
       <div className="flex flex-col gap-10">
-        <button className="flex flex-row self-end justify-center items-center gap-2 p-2 px-4 bg-meta-4">
+        <button className="flex flex-row self-end justify-center items-center gap-2 p-2 px-4 bg-meta-4" onClick={()=>setOpen(true)}>
             ADD <FaPlus/>
         </button>
         <div className="relative bg-white p-3">
@@ -49,6 +51,7 @@ const AdminPenerbit = () => {
             className="w-full bg-transparent pr-4 pl-9 focus:outline-none"
             onChange={(e) => setQuery(e.target.value)}/>
         </div>
+        <ModalAddPenerbit open={open} close={()=>setOpen(false)} refetch={fetchPenerbit}  />
         {
           listPenerbit && <TableTemp headers={penerbitHeaders} data={listPenerbit} tipe='penerbit' action refetch={fetchPenerbit} />
         }
