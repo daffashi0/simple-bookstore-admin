@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import FormElements from './pages/Form/FormElements';
-import FormLayout from './pages/Form/FormLayout';
-import Tables from './pages/Tables';
-import Alerts from './pages/UiElements/Alerts';
-import Buttons from './pages/UiElements/Buttons';
+import Admin from './pages/Admin';
+import Home from './pages/Home';
+import Pengadaan from './pages/Pengadaan';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,11 +26,9 @@ function App() {
   ) : (
     <>
       <Routes>
-        <Route path="/forms/form-elements" element={<FormElements />} />
-        <Route path="/forms/form-layout" element={<FormLayout />} />
-        <Route path="/tables" element={<Tables />} />
-        <Route path="/ui/alerts" element={<Alerts />} />
-        <Route path="/ui/buttons" element={<Buttons />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/pengadaan" element={<Pengadaan />} />
       </Routes>
     </>
   );
