@@ -1,14 +1,14 @@
 import Breadcrumb from '../components/Breadcrumb';
-import TableThree from '../components/TableThree';
+import TableTemp from '../components/TableTemp';
 import DefaultLayout from '../layout/DefaultLayout';
 
 const Tables = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName='Admin' />
+      <Breadcrumb pageName='List Penerbit' />
 
       <div className="flex flex-col gap-10">
-        <TableThree />
+        <TableTemp />
       </div>
     </DefaultLayout>
   );

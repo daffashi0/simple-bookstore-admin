@@ -5,6 +5,8 @@ import DefaultLayout from '../layout/DefaultLayout';
 const Tables = () => {
   return (
     <DefaultLayout>
+      <Breadcrumb pageName='List Buku' />
+
       <div className="flex flex-col gap-10">
         <TableTemp />
       </div>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Admin from './pages/Admin';
+import Buku from './pages/Admin_Buku';
+import Penerbit from './pages/Admin_Penerbit';
 import Home from './pages/Home';
 import Pengadaan from './pages/Pengadaan';
 
@@ -27,7 +28,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/buku" element={<Buku />} />
+        <Route path="/admin/penerbit" element={<Penerbit />} />
         <Route path="/pengadaan" element={<Pengadaan />} />
       </Routes>
     </>
